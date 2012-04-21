@@ -1,0 +1,33 @@
+
+
+// make a capped collection
+
+use rtsdemo
+
+db.createCollection("statstore", { capped: true, size: 5000000 });
+
+// save a document to the collection
+
+db.statstore.save({ event: 'login', count: 5});
+
+// query with a tailable cursor
+
+c = db.collection.find({}).addOption(2).addOption(32);
+
+// put cursor query into a loop
+
+for(i=0;i<5;i++) {
+      while(c.hasNext()) {
+           var doc = c.next();
+           printjson( doc );
+      }
+}
+
+// script to populate database
+
+var events = [ 'login', 'logout', 'home-page', 'prod-page', 'feedback', 'ad-click' ]
+
+function random(max) { return Math.floor(Math.random() * max) + 1; }
+
+for(i=0; i<200000; i++) { db.statstore.save({event: events[random(events.length)-1], count: random(5) }) }
+
