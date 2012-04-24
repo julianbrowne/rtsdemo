@@ -16,14 +16,3 @@ h1
   margin-bottom: .3em;
 }
 
-#output
-{
-    color: white;
-    background: gray;
-    border: 1px solid black;
-    font-size: 50px;
-    width: 800px;
-    margin: 50px auto;
-    padding: 50px;
-    text-align: center;
-}

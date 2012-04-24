@@ -1,25 +1,14 @@
 <html>
 <head>
-    <title>RTS Demo - Simple Socket Receiver</title>
+    <title>RTS Demo</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
-    <script src='javascripts/jquery-1.7.1.min.js'></script>
-    <script src='/socket.io/socket.io.js'></script>
-    <script>
-        $(function(){
-            var socket = io.connect('/');
-
-            socket.on('stats-channel', function (data) {
-                console.log('Received some data.');
-                $("#output").html(data._id);
-            });
-        });
-    </script>
 </head>
 <body>
-    <h1>Simple Socket Receiver</h1>
-    <a href="/d3examples/showreel/showreel.html">d3 example</a> |
-    <a href="graph.html">graph</a>
-    <div id="output">
-    </div>
+    <h1>Real Time Stats Demo</h1>
+    <ul>
+        <li><a href="simple.html">Simple Receiver</a></li>
+        <li><a href="d3examples/showreel/showreel.html">D3 Example</a></li>
+        <li><a href="bar.html">Bar Chart</a></li>
+    </ul>
 </body>
 </html>

@@ -9,6 +9,18 @@ html, body
     font-size: 0.9em;
 }
 
+#output
+{
+    color: white;
+    background: gray;
+    border: 1px solid black;
+    font-size: 50px;
+    width: 800px;
+    margin: 50px auto;
+    padding: 50px;
+    text-align: center;
+}
+
 .chart rect
 {
    fill: steelblue;
@@ -61,12 +73,6 @@ html, body
 
 .list img {
   float: left;
-}
-
-h1 {
-  font-size: 36px;
-  font-weight: 300;
-  margin-bottom: .3em;
 }
 
 .sidebar {
