@@ -61,7 +61,7 @@ var area = d3.svg.area()
     .y0(h / 4 - 20)
     .y1(function(d) { return y(d.price); });
 
-d3.csv("../data/stocks.csv", function(data) {
+d3.csv("stocks.csv", function(data) {
   var parse = d3.time.format("%b %Y").parse,
       filter = {AAPL: 1, AMZN: 1, MSFT: 1, IBM: 1};
 
