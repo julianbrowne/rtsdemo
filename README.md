@@ -18,7 +18,7 @@ Set-up
 
 - Install MongoDB
 - Put these files demo somewhere (e.g. /usr/local/rtsdemo)
-- Edit scripts/rtsdemo.conf.sh and set location of MongoDB and the home directory for this demo
+- Edit scripts/rtsdemo.conf and set location of MongoDB and the home directory for this demo
 
     MONGODB_HOME        // root directory of MongoDB install  
     RTSDEMO_HOME        // root directory for these files  
