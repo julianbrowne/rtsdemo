@@ -8,6 +8,7 @@ var utils   = require('./lib/utils.js');
 
 var dbname   = 'rtsdemo';
 var collname = 'statstore';
+var nodePort = 8010;
 
 // create file handler for local http server
 
@@ -20,7 +21,7 @@ var handler = function (request, response) {
 
 var socketsApp = http.createServer(handler);
 var io = socket.listen(socketsApp);
-socketsApp.listen(8010);
+socketsApp.listen(nodePort);
 
 // create mongo connection and make a db
 
@@ -36,7 +37,7 @@ dbConnection.open(function(error,db){
 
     io.sockets.on('connection', function (socket) {
         console.log('Received browser connection.');
-        utils.readAndSend(socket, coll);
+        utils.readAndSend(socket, coll, 'stats-channel');
     });
 
 });

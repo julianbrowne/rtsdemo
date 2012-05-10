@@ -1,0 +1,44 @@
+
+html, body
+{
+    color: white;
+    background: #923F2A;
+    margin: 10px;
+    padding: 10px;
+    font-family: Helvetica Neue;
+    font-size: 0.9em;
+}
+
+h1
+{
+  font-size: 36px;
+  font-weight: 300;
+  margin-bottom: .3em;
+}
+
+#output
+{
+    background: #7D922A;
+}
+
+.node rect {
+  cursor: pointer;
+  fill: #fff;
+  fill-opacity: .5;
+  stroke: white;
+  stroke-width: 1.5px;
+}
+
+.node text
+{
+  font: 18px helvetica;
+  fill: #FFFFFF;
+  pointer-events: none;
+}
+
+path.link {
+  fill: none;
+  stroke: #9ecae1;
+  stroke-width: 1.5px;
+}
+

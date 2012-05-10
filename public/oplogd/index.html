@@ -1,0 +1,30 @@
+<html>
+<head>
+    <title>Oplog Monitor | RTS Demo</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src='/socket.io/socket.io.js'></script>
+    <script src='d3.js'></script>
+    <script>
+            var socket = io.connect('/');
+
+            socket.on('oplog-channel', function (oplogData) {
+
+                console.log('Received oplog data.');
+
+                if(oplogData.op === "i")
+                    insertDocument(oplogData.o, oplogData.ns, data);
+
+                if(oplogData.op === "u")
+                    updateDocument(oplogData.o, oplogData.ns, data);
+
+                if(oplogData.op === "d")
+                    deleteDocument(oplogData.o, oplogData.ns, data);
+            });
+    </script>
+</head>
+<body>
+    <h1>Simple Oplog Monitor</h1>
+    <div id="output"></div>
+    <script src='oplog.js'></script>
+</body>
+</html>
