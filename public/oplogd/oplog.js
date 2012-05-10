@@ -1,3 +1,11 @@
+/**
+ *
+ *  This code copied, and generally degraded, from Mike Bostock's
+ *  D3 example of an Indented Tree - http://bl.ocks.org/1093025
+ *
+ *  More excellence can be found at: https://github.com/mbostock
+ *
+**/
 
 var w = 960;
 var h = 2000;
@@ -27,15 +35,12 @@ update(data);
 function update(source)
 {
 
-  // Compute the flattened node list. TODO use d3.layout.hierarchy.
   var nodes = tree.nodes(data);
   
-  // Compute the "layout".
   nodes.forEach(function(n, i) {
     n.x = i * barHeight;
   });
   
-  // Update the nodes…
   var node = vis.selectAll("g.node")
       .data(nodes, function(d) { return d.id || (d.id = ++i); });
   
@@ -44,7 +49,6 @@ function update(source)
       .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
       .style("opacity", 1e-6);
 
-  // Enter any new nodes at the parent's previous position.
   nodeEnter.append("svg:rect")
       .attr("y", -barHeight / 2)
       .attr("height", barHeight)
@@ -57,7 +61,6 @@ function update(source)
       .attr("dx", 5.5)
       .text(getNodeLabel);
   
-  // Transition nodes to their new position.
   nodeEnter.transition()
       .duration(duration)
       .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
@@ -70,18 +73,16 @@ function update(source)
     .select("rect")
       .style("fill", color);
   
-  // Transition exiting nodes to the parent's new position.
-  node.exit().transition()
-      .duration(duration)
-      .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
-      .style("opacity", 1e-6)
-      .remove();
+  node.exit()
+      .transition()
+        .duration(duration)
+        .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+        .style("opacity", 1e-6)
+        .remove();
   
-  // Update the links…
   var link = vis.selectAll("path.link")
       .data(tree.links(nodes), function(d) { return d.target.id; });
   
-  // Enter any new links at the parent's previous position.
   link.enter().insert("svg:path", "g")
       .attr("class", "link")
       .attr("d", function(d) {
@@ -92,12 +93,10 @@ function update(source)
       .duration(duration)
       .attr("d", diagonal);
   
-  // Transition links to their new position.
   link.transition()
       .duration(duration)
       .attr("d", diagonal);
   
-  // Transition exiting nodes to the parent's new position.
   link.exit().transition()
       .duration(duration)
       .attr("d", function(d) {
@@ -106,7 +105,6 @@ function update(source)
       })
       .remove();
   
-  // Stash the old positions for transition.
   nodes.forEach(function(d) {
     d.x0 = d.x;
     d.y0 = d.y;
@@ -143,6 +141,12 @@ function showChildren(node)
   }
 }
 
+/**
+ *  Computes a colour for nodes based on the
+ *  value of the 'type' attribute.
+ *  Basic MongoDB types catered for.
+**/
+
 function color(d)
 {
   if(d.type)
@@ -162,6 +166,11 @@ function color(d)
 
   return "#242A0C";
 }
+
+/**
+ * Insert a mongo document into the data array
+ * creates/updates db/coll as necessary
+**/
 
 function insertDocument(doc, namespace, data)
 {
@@ -186,6 +195,11 @@ function insertDocument(doc, namespace, data)
 
   update(data);
 }
+
+/**
+ * Find and then update key/values for a
+ * doc that's already in the data array
+**/
 
 function updateDocument(doc, namespace, data)
 {
@@ -216,6 +230,10 @@ function updateDocument(doc, namespace, data)
   update(data);
 }
 
+/**
+ * Remove a doc from the data array
+**/
+
 function deleteDocument(doc, namespace, data)
 {
   var dbName   = parseNamespace(namespace).db;
@@ -237,6 +255,10 @@ function deleteDocument(doc, namespace, data)
 
   update(data);
 }
+
+/**
+ * Seek out the database parent key in the JSON
+**/
 
 function findDatabase(db, data)
 {
@@ -263,6 +285,10 @@ function findDatabase(db, data)
   return dbEntry;
 }
 
+/**
+ * Seek out the collection parent key in the JSON
+**/
+
 function findCollection(coll, db)
 {
   var collEntry = null;
@@ -286,6 +312,10 @@ function findCollection(coll, db)
 
   return collEntry;
 }
+
+/**
+ * Seek out a specific document in the collection JSON
+**/
 
 function findDocument(doc, coll)
 {
@@ -315,6 +345,10 @@ function parseNamespace(namespace)
   return {db: db, coll: coll};
 }
 
+/**
+ * Find whether child entries are 'hidden' or not
+**/
+
 function childStore(obj)
 {
   if(obj.children)
@@ -322,6 +356,10 @@ function childStore(obj)
   else
     return obj._children;
 }
+
+/**
+ * Label nodes in the vis with their json key/value
+**/
 
 function getNodeLabel(d)
 {
