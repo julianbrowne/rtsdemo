@@ -20,8 +20,8 @@ Set-up
 - Put these files demo somewhere (e.g. /usr/local/rtsdemo)
 - Edit scripts/rtsdemo.conf.sh and set location of MongoDB and the home directory for this demo
 
-    MONGODB_HOME        // root directory of MongoDB install
-    RTSDEMO_HOME        // root directory for these files
+    MONGODB_HOME        // root directory of MongoDB install  
+    RTSDEMO_HOME        // root directory for these files  
 
 The demo includes a number of shortcut scripts for starting and stopping MongoDB etc. They
 keep MongoDB demo data local to the demo directory ($RTSDEMO_HOME/temp) so as not to interfere
