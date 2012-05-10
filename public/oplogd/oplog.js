@@ -7,11 +7,11 @@
  *
 **/
 
-var w = 960;
-var h = 2000;
+var w = 800;
+var h = 1000;
 var i = 0;
-var barHeight = 30;
-var barWidth = w * .8;
+var barHeight = 40;
+var barWidth = 760;
 var duration = 400;
 var data = {name: "MongoDB", children: []};
 
@@ -44,15 +44,17 @@ function update(source)
   var node = vis.selectAll("g.node")
       .data(nodes, function(d) { return d.id || (d.id = ++i); });
   
-  var nodeEnter = node.enter().append("svg:g")
-      .attr("class", "node")
-      .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
-      .style("opacity", 1e-6);
+  var nodeEnter = node
+    	.enter()
+    	.append("svg:g")
+    		.attr("class", "node")
+    		.attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+    		.style("opacity", 1e-6);
 
   nodeEnter.append("svg:rect")
       .attr("y", -barHeight / 2)
       .attr("height", barHeight)
-      .attr("width", barWidth)
+      .attr("width", function(d){ return barWidth - d.y })
       .style("fill", color)
       .on("click", click);
   

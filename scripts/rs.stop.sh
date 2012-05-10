@@ -9,12 +9,22 @@ do
         if [ "${PID}" -eq "" ]
         then
             echo "Can't find node process id in ${PROCFILE}"
-        else
-            echo "Attempting to kill -1 ${PID}"
-            kill -1 ${PID}
-            sleep 3 # wait otherwise mongod touches the file
-            rm -f "${PROCFILE}"
+    		echo "Trying ps, fgrep, awk, etc"
+
+            PID=`ps -ef | fgrep ${PROCFILE} | grep -v grep | awk '{print $2}'`
+
+            if [ "${PID}" -eq "" ]
+            then
+                echo "Failed to find a process"
+                exit 1
+            fi
         fi
+
+        echo "Attempting to kill -1 ${PID}"
+        kill -1 ${PID}
+        sleep 3 # wait otherwise mongod touches the file
+        rm -f "${PROCFILE}"
+
     else
         echo "No PID file. Doesn't look like mongod is running"
         echo "Try stopping manually"

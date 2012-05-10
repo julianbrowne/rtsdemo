@@ -2,23 +2,29 @@
 html, body
 {
     color: white;
-    background: #332518;
+    background: #311E11;
     margin: 10px;
     padding: 10px;
     font-family: Helvetica Neue;
     font-size: 0.9em;
 }
 
-h1
+.logo
 {
-  font-size: 36px;
-  font-weight: 300;
-  margin-bottom: .3em;
+  vertical-align: middle;
+}
+.title
+{
+	text-align: center;
+	font-size: 48px;
+	font-weight: 300;
 }
 
 #output
 {
-    background: #7D922A;
+	background: #7D922A;
+	width: 800px;
+	margin: 10px auto;
 }
 
 .node rect {
@@ -38,7 +44,7 @@ h1
 
 path.link {
   fill: none;
-  stroke: #9ecae1;
+  stroke: #FFFFFF;
   stroke-width: 1.5px;
 }
 
