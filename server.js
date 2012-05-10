@@ -25,7 +25,7 @@ socketsApp.listen(nodePort);
 
 // create mongo connection and make a db
 
-var mongoServer  = new mongo.Server('localhost', 27017, {});
+var mongoServer  = new mongo.Server('localhost', 8001, {});
 
 var dbConnection = new mongo.Db(dbname, mongoServer, {});
 
