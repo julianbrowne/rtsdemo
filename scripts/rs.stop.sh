@@ -1,8 +1,13 @@
 
 HERE=$(dirname $0); . ${HERE}/rtsdemo.conf
 
-for PROCFILE in ${MONGO_PRC1} ${MONGO_PRC2}
+for NODE in ${RSETLIST[@]}
 do
+    # warning uses evil eval
+    
+    TEMPPATH="`eval echo \$\{${NODE}\}`"
+    PROCFILE="${TEMPPATH}/mongod.pid"
+
     if [ -f "${PROCFILE}" ]
     then
         PID=`cat "${PROCFILE}"`

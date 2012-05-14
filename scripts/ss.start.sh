@@ -1,28 +1,33 @@
 
 HERE=$(dirname $0); . ${HERE}/rtsdemo.conf
 
-if [ -f "${MONGO_PROC}" ]
+PROCFILE=${MONGO_DEMO}/mongod.pid
+DATAFILE=${MONGO_DEMO}/datafiles
+LOGFPATH=${MONGO_DEMO}/mongod.log
+MONGOPRT=${MONGO_DEMO.PORT}
+
+if [ -f "${PROCFILE}" ]
 then
-    echo "PID file exists at ${MONGO_PROC} - mongod already running"
+    echo "PID file exists at ${PROCFILE} - mongod already running"
     exit 1
 fi
 
-if [ ! -d "${MONGO_DATA}" ]
+if [ ! -d "${DATAFILE}" ]
 then
-    echo "Making single server data directory at ${MONGO_DATA}"
-    mkdir -p "${MONGO_DATA}"
+    echo "Making single server data directory at ${DATAFILE}"
+    mkdir -p "${DATAFILE}"
 fi
 
-echo "Starting mongod .."
+echo "Starting mongod on port ${MONGOPRT}.."
 
-> "${MONGO_LOGF}"
+> "${LOGFPATH}"
 
-${MONGODB_HOME}/bin/mongod \
-    --dbpath ${MONGO_DATA} \
-    --port   ${MONGO_PORT} \
-    --pidfilepath ${MONGO_PROC} \
+${MONGODB_HOME}/bin/mongod    \
+    --dbpath ${DATAFILE}      \
+    --port   ${MONGOPRT}    \
+    --pidfilepath ${PROCFILE} \
     --rest \
     --noprealloc \
-    --logpath ${MONGO_LOGF} &
+    --logpath ${LOGFPATH} &
 
 sleep 2

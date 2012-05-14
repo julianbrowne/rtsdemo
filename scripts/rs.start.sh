@@ -1,65 +1,62 @@
 
 HERE=$(dirname $0); . ${HERE}/rtsdemo.conf
 
-if [ -d "${MONGO_RSN1}" ]
-then
-    echo "Cleaning out RS Node 1 tmp directory at ${MONGO_RSN1}"
-    rm -r "${MONGO_RSN1}"
-fi
+echo "Initiating replica set ${RSETNAME}"
 
-if [ ! -d "${MONGO_DAT1}" ]
-then
-    echo "Making RS Node 1 data directory at ${MONGO_DAT1}"
-    mkdir -p "${MONGO_DAT1}"
-fi
+SERVCONF=""
+SERVID=0
 
-echo "Starting Node 1 .."
+for NODE in ${RSETLIST[@]}
+do
 
-${MONGODB_HOME}/bin/mongod \
-    --dbpath ${MONGO_DAT1} \
-    --port   ${MONGO_PRT1} \
-    --pidfilepath ${MONGO_PRC1} \
-    --rest \
-    --noprealloc \
-    --logpath ${MONGO_LOG1} \
-    --replSet ${MONGO_REPSET} &
+    # warning .. uses evil eval
 
-sleep 2
+    TEMPPATH="`eval echo \$\{${NODE}\}`"
+    MONGOPRT="`eval echo \$\{${NODE}.PORT\}`"
+    PROCFILE="${TEMPPATH}/mongod.pid"
+    DATAFILE="${TEMPPATH}/datafiles"
+    LOGFPATH="${TEMPPATH}/mongod.log"
 
-if [ -d "${MONGO_RSN2}" ]
-then
-    echo "Cleaning out RS Node 1 tmp directory at ${MONGO_RSN2}"
-    rm -r "${MONGO_RSN2}"
-fi
+    if [ -d "${TEMPPATH}" ]
+    then
+        echo "Cleaning out temp directory at ${TEMPPATH}"
+        rm -r "${TEMPPATH}"
+    fi
 
-if [ ! -d "${MONGO_DAT2}" ]
-then
-    echo "Making RS Node 2 data directory at ${MONGO_DAT2}"
-    mkdir -p "${MONGO_DAT2}"
-fi
+    if [ ! -d "${DATAFILE}" ]
+    then
+        echo "Making mongodb data directory at ${DATAFILE}"
+        mkdir -p "${DATAFILE}"
+        > "${LOGFPATH}"
+    fi
 
-echo "Starting Node 2 .."
+    SERVCONF="${SERVCONF}{_id: ${SERVID}, host: 'localhost:${MONGOPRT}'},"
+    SERVID=`expr ${SERVID} + 1`
 
-${MONGODB_HOME}/bin/mongod \
-    --dbpath ${MONGO_DAT2} \
-    --port   ${MONGO_PRT2} \
-    --pidfilepath ${MONGO_PRC2} \
-    --rest \
-    --noprealloc \
-    --logpath ${MONGO_LOG2} \
-    --replSet ${MONGO_REPSET} &
+    echo "Starting mongod on port ${MONGOPRT} .."
+    echo "  data: ${DATAFILE}"
+    echo "  logs: ${LOGFPATH}"
 
-sleep 2
+    ${MONGODB_HOME}/bin/mongod    \
+        --dbpath ${DATAFILE}      \
+        --port   ${MONGOPRT}      \
+        --pidfilepath ${PROCFILE} \
+        --rest \
+        --noprealloc \
+        --logpath ${LOGFPATH} \
+        --replSet ${RSETNAME} &
 
-echo "Connecting to and initiating Node 1 .."
+    sleep 2
 
-${MONGODB_HOME}/bin/mongo --port ${MONGO_PRT1} << EOF
+done
 
-config = { _id: "${MONGO_REPSET}", members: [
-                          {_id: 0, host: "localhost:${MONGO_PRT1}"},
-                          {_id: 2, host: 'localhost:${MONGO_PRT2}'}
-                        ]
-           }
+echo "Connecting to and node at port ${MONGOPRT} .."
+
+SERVCONF=${SERVCONF%,}  # chomp the ','
+
+${MONGODB_HOME}/bin/mongo --port ${MONGOPRT} << EOF
+
+config = { _id: "${RSETNAME}", members: [ ${SERVCONF} ] }
 
 rs.initiate(config);
 
