@@ -21,7 +21,7 @@ then
         fi
     fi
 
-    echo "Attempting to kill -1 ${PID}"
+    echo "Attempting to stop ${PID}"
     kill -1 ${PID}
     sleep 3 # wait otherwise mongod touches the file
     rm -f "${PROCFILE}"
