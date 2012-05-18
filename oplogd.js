@@ -53,7 +53,7 @@ dbConnection.open(function(error,db){
 
     if(error)
     {
-        console.error("Open database failed. Is the Replica Set up?");
+        console.error("Error: Open database failed. Is the Replica Set up?");
         process.exit(1);
     }
 

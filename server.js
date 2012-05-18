@@ -23,6 +23,8 @@ var socketsApp = http.createServer(handler);
 var io = socket.listen(socketsApp);
 socketsApp.listen(nodePort);
 
+console.log("HTTP server running on http://localhost:" + nodePort);
+
 // create mongo connection and make a db
 
 var mongoServer  = new mongo.Server('localhost', 8001, {});
@@ -32,6 +34,12 @@ var dbConnection = new mongo.Db(dbname, mongoServer, {});
 // Open db and wait for browser to connect
 
 dbConnection.open(function(error,db){
+
+    if(error)
+    {
+        console.error("Error: Open database failed. Is mongod running?");
+        process.exit(1);
+    }
 
     var coll = db.collection(collname);
 
