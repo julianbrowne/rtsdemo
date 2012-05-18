@@ -1,14 +1,4 @@
 
-html, body
-{
-    color: black;
-    background: white;
-    margin: 10px;
-    padding: 10px;
-    font-family: Helvetica Neue;
-    font-size: 0.9em;
-}
-
 #output
 {
     color: white;
@@ -19,6 +9,13 @@ html, body
     margin: 50px auto;
     padding: 50px;
     text-align: center;
+}
+
+svg {
+  /*border: solid 1px #000;*/
+  display: block;
+  margin: auto;
+  font-family: "Helvetica Neue";
 }
 
 .chart rect
