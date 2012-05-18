@@ -36,7 +36,7 @@ Demo Part 1
 
 - (note: other useful scripts)
 
-  scripts/ss.stop.sh    // shuts single server down
+  scripts/ss.stop.sh    // shuts single server down   
   scripts/ss.clean.sh   // removes temp data/log/pid files  
 
 - start mongo shell and create a capped collection
