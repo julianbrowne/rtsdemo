@@ -89,6 +89,8 @@ the capped collection
 
   for(i=0; i<200000; i++) { db.statstore.save({event: events[random(events.length)-1], count: random(5) }) }
 
+- (note: this can be run directly from script/ss.data.sh)
+
 - This shows the basic set up and operation. The grandaddy of all
 capped collections is the oplog used to communicate between nodes
 in a Replica Set. Everything that happens on the primary is written
