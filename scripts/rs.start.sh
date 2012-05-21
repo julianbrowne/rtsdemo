@@ -3,8 +3,8 @@ HERE=$(dirname $0); . ${HERE}/rtsdemo.conf
 
 echo "Initiating replica set ${RSETNAME}"
 
-SERVCONF=""
 SERVID=0
+SERVCONF=""
 
 for NODE in ${RSETLIST[@]}
 do
