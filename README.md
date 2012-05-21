@@ -95,10 +95,12 @@ the capped collection
 
 - (note: this can be run directly from script/ss.data.sh)
 
-- This shows the basic set up and operation. The grandaddy of all
-capped collections is the oplog used to communicate between nodes
-in a Replica Set. Everything that happens on the primary is written
-in an idempotent form to the oplog and then picked up by member
+Demo Part 2
+-----------
+
+- The grandaddy of all capped collections is the oplog used to communicate
+between nodes in a Replica Set. Everything that happens on the primary is
+written in an idempotent form to the oplog and then picked up by member
 nodes.
 
 - Start a Replica Set
