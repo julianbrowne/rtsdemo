@@ -6,15 +6,23 @@
     <link rel="stylesheet" href="/bootstrap/css/docs.css">
     <link rel="stylesheet" href="/stylesheets/graph.css" />
     <script src='javascripts/jquery-1.7.1.min.js'></script>
-    <script src='/socket.io/socket.io.js'></script>
+    <script src='http://localhost:8011/socket.io/socket.io.js'></script>
     <script>
         $(function(){
-            var socket = io.connect('/');
 
-            socket.on('stats-channel', function (data) {
-                console.log('Received some data.');
-                $("#output").html(data._id);
-            });
+            if(typeof(io) === 'undefined')
+                $("#output").html("No WS connection");
+            else
+            {
+                var socket = io.connect('ws://localhost:8011');
+
+
+                socket.on('stats-channel', function (data) {
+                    console.log('Received some data.');
+                    $("#output").html(data._id);
+                });
+            }
+
         });
     </script>
 </head>
@@ -26,6 +34,7 @@
                 <li><a href="simple.html">Simple Receiver</a></li>
                 <li><a href="d3example.html">D3 Example</a></li>
                 <li><a href="bar.html">Bar Chart</a></li>
+                <li><a href="oplog.html">Oplog Watcher</a></li>
             </ul>
         </div>
     </div>

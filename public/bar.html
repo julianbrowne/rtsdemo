@@ -6,12 +6,36 @@
     <link rel="stylesheet" href="/bootstrap/css/docs.css">
     <link rel="stylesheet" href="/stylesheets/graph.css" />
     <script src='javascripts/d3.v2.min.js'></script>
-    <script src='/socket.io/socket.io.js'></script>
+    <script src='http://localhost:8011/socket.io/socket.io.js'></script>
+</head>
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <ul class="nav">
+                <li><a href="index.html"><i class="icon-home icon-white"></i> </a></li>
+                <li><a href="simple.html">Simple Receiver</a></li>
+                <li><a href="d3example.html">D3 Example</a></li>
+                <li><a href="bar.html">Bar Chart</a></li>
+                <li><a href="oplog.html">Oplog Watcher</a></li>                
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <header>
+            <h1>Bar Chart</h1>
+        </header>
+        <p></p>
+        <div id="barchart" class="gallery"></div>
+    </div>
     <script>
-            var chartData   = [];
-            var chartLabels = [];
+        var chartData   = [];
+        var chartLabels = [];
 
-            var socket = io.connect('/');
+        if(typeof(io) === 'undefined')
+            d3.select("#barchart").html("No WS connection");
+        else
+        {
+            var socket = io.connect('ws://localhost:8011');
 
             socket.on('stats-channel', function (data) {
                 var event = data.event;
@@ -28,28 +52,8 @@
 
                 console.log('Updated count for ' + event + ' to ' + chartData[chartLabels.indexOf(event)]);
                 updateChart(chartData);
-            });
-    </script>
-</head>
-<body>
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <ul class="nav">
-                <li><a href="index.html"><i class="icon-home icon-white"></i> </a></li>
-                <li><a href="simple.html">Simple Receiver</a></li>
-                <li><a href="d3example.html">D3 Example</a></li>
-                <li><a href="bar.html">Bar Chart</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="container">
-        <header>
-            <h1>Bar Chart</h1>
-        </header>
-        <p></p>
-        <div id="barchart" class="gallery"></div>
-    </div>
-    <script>
+            });                
+        }
 
         // Initialise SVG
 
