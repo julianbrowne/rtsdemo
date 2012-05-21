@@ -8,10 +8,10 @@ MongoDB Thames Valley User Group Demo
 
 Includes:
 
-- slides (keynote and PDF)
-- script sources for set-up and for writer
-- node.js server to stream MongoDB data
-- web site with D3 charting
+- Slides (PDF)
+- Scripts for all demo steps
+- Node servers to stream MongoDB data
+- Web pages with D3 charting
 
 Set-up
 ------
@@ -30,7 +30,7 @@ with any existing local installation. All commands below will assume a root of $
 Demo Part 1
 -----------
 
-- start mongod as single server
+- Start mongod as single server
 
   scripts/ss.start.sh
 
@@ -39,7 +39,7 @@ Demo Part 1
   scripts/ss.stop.sh    // shuts single server down   
   scripts/ss.clean.sh   // removes temp data/log/pid files  
 
-- start mongo shell and create a capped collection
+- Start mongo shell and create a capped collection
 
   mongo
 
@@ -47,7 +47,7 @@ Demo Part 1
 
 	db.createCollection("statstore", {capped: true, size: 5000000});
 
-- write data to mongoDB, either manually or by running writer script
+- Write data to mongoDB, either manually or by running writer script
 
   db.statstore.save({ event: 'login', count: 5});
 
@@ -67,15 +67,19 @@ Demo Part 1
   }
 
 - A loop like this is not a great ideas for anything other than a demo
-so next step is to move reader functionality to something like node.js,
-though ruby or python would be just as simple
+so next step is to move reader functionality to something like node.js
+(ruby or python would be just as simple)
 
-- start node.js server
+- Start node.js server for demo web pages
 
-  node server.js
+  node server
+
+- Start node.js listener
+
+  node sswatcher
 
 - Open browser (only tested in chrome 18.0, FF should work fine). The
-http and websocket are bound to port 8010
+http server by default runs on 8010, the websocket on 8011
 
   http://localhost:8010
 
@@ -108,16 +112,18 @@ nodes.
 - Start alternative node.js server that tails the oplog and visualises
 mongodb creates, updates and deletes
 
-  node oplogd.js
+  node rswatcher
 
-- Open browser. http and websocket are bound to port 8011
+- Now final tab in demo html will work. Websocket is by default running on 8012
 
-  http://localhost:8011
-
-- Now you can write anything in any database or collection on the master
+- Can write anything in any database or collection on the master
 and it will show up on the visualisation
 
   mongo --port 8002
 
 - (note: usually port its 8002, though the mongo shell will indicate which node
 has become primary as its prompt. If it's not 8002 it's 8003)
+
+- Random data can be written to mongo with the rs.data.sh script
+
+
