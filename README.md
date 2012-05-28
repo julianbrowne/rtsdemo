@@ -3,8 +3,8 @@
 Simple Real-Time Stats Demo Using MongoDB, node.js and D3
 =========================================================
 
-MongoDB Thames Valley User Group Demo
-(April 2012)
+MongoDB Thames Valley User Group (April 2012)
+MongoDB London User Group (May 2012)
 
 Includes:
 
