@@ -11,7 +11,7 @@ var rtskeys  = [ 'login', 'logout', 'home-page', 'basket-add', 'basket-view', 'c
 
 function random(max) { return Math.floor(Math.random() * max) + 1; }
 
-for(var i=0; i<100; i++){
+for(var i=0; i<20; i++){
 
     var randDb   = rtsdbs[random(rtsdbs.length)-1];
     var randColl = rtscolls[random(rtscolls.length)-1];
