@@ -16,8 +16,8 @@ MongoDB London User Group (May 2012)
 
 ##Prerequisites
 
-- MongoDB (2.0.2 used)
-- Node.JS (0.6.10 used)
+- MongoDB (v2.0.2, v2.2.0, v2.4.0, v2.4.4 used ok)
+- Node.JS (v0.6.10, v0.8.20 used ok; v0.11.2 didn't work)
 
 ##Installation
 

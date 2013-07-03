@@ -13,7 +13,7 @@ var utils   = require('./lib/utils.js');
 // mongo/demo settings
 
 var mongoHost = 'localhost';
-var mongoPort = 8001;
+var mongoPort = 27017;
 var dbname    = 'rtsdemo';
 var collname  = 'statstore';
 
