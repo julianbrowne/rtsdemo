@@ -19,4 +19,4 @@ var handler = function (request, response) {
 http.createServer(handler)
     .listen(demoPort);
 
-console.log("RTS Demo server running on http://localhost:" + demoPort);
+console.log("RTS Demo: Server running on http://localhost:" + demoPort);

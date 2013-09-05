@@ -26,7 +26,7 @@ var io = socket.listen(socketsApp);
 io.set('log level', 1);
 socketsApp.listen(wsPort);
 
-console.log("SS Watcher WS server running on ws://localhost:" + wsPort);
+console.log("RTS Demo: SS Watcher WS server running on ws://localhost:" + wsPort);
 
 // create mongo connection and make a db
 
@@ -40,14 +40,14 @@ dbConnection.open(function(error,db){
 
     if(error)
     {
-        console.error("Error: Open database failed. Is mongod running?");
+        console.error("*** Error: Open database failed. Is mongod running?");
         process.exit(1);
     }
 
     var coll = db.collection(collname);
 
     io.sockets.on('connection', function (socket) {
-        console.log('Received browser connection.');
+        console.log('RTS Demo: Received browser connection.');
         utils.readAndSend(socket, coll, 'stats-channel');
     });
 

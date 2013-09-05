@@ -27,7 +27,7 @@ var io = socket.listen(socketsApp);
 io.set('log level', 1);
 socketsApp.listen(wsPort);
 
-console.log("SS Watcher WS server running on ws://localhost:" + wsPort);
+console.log("RTS Demo: SS Watcher WS server running on ws://localhost:" + wsPort);
 
 //  Create mongo connection to Replica Set
 
@@ -41,19 +41,16 @@ var dbConnection = new mongo.Db(dbname, repSet, {});
 
 // Open db and wait for browser to connect
 
-dbConnection.open(function(error,db){
-
-    if(error)
-    {
-        console.error("Error: Open database failed. Is the Replica Set up?");
+dbConnection.open(function(error,db) { 
+    if(error) {
+        console.error("*** Error: Open database failed. Is the Replica Set up?");
         process.exit(1);
     }
 
     var coll = db.collection(collname);
 
     io.sockets.on('connection', function (socket) {
-        console.log('Received browser connection.');
+        console.log('RTS Demo: Received browser connection.');
         utils.readAndSend(socket, coll, 'oplog-channel');
     });
-
 });
