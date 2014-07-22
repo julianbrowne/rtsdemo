@@ -4,7 +4,7 @@
 
 var http     = require('http');
 var content  = require('node-static');
-var demoPort = 8010;
+var config   = require('./config/rtsdemo.json');
 
 var www = new(content.Server)('public');
 
@@ -21,6 +21,6 @@ var handler = function (request, response) {
 };
 
 var server = http.createServer(handler);
-server.listen(demoPort);
+server.listen(config.http.port);
 
-console.log("RTS Demo: Server running on http://localhost:%s", demoPort);
+console.log("RTS Demo: Server running on http://localhost:%s", config.http.port);

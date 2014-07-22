@@ -7,7 +7,6 @@
 var http    = require('http');
 var socket  = require('socket.io');
 var mongo   = require('mongodb');
-require('./lib/cursorextension.js').extendCursor(mongo);
 var utils   = require('./lib/utils.js');
 
 // mongo/demo settings

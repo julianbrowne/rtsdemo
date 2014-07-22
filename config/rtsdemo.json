@@ -1,0 +1,31 @@
+{
+    "mongodb": { 
+        "home": "/usr/local/mongodb-2.4.4",
+        "single": { 
+            "host": "localhost",
+            "port": 27017,
+            "db": "rtsdemo",
+            "collection": "statstore"
+        },
+        "repset": { 
+            "host": "localhost",
+            "name": "rtsdemo",
+            "ports": [ 8002, 8003 ],
+            "db": "local",
+            "collection": "oplog.rs"
+        }
+    },
+
+    "http": { 
+        "port": 8010
+    },
+
+    "watchers": {
+        "single": {
+            "websocket": 8011
+        },
+        "repset": {
+            "websocket": 8012
+        }
+    }
+}
