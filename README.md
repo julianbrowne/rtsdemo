@@ -1,23 +1,22 @@
 
+# MongoDB Simple Real-Time Stats Demo
 
-#MongoDB Simple Real-Time Stats Demo
-
-###Also starring node.js and D3
+Also starring node.js and D3
 
 MongoDB Thames Valley User Group (April 2012)  
 MongoDB London User Group (May 2012)  
 
-##Contents
+## Contents
 
 - Slides [PDF]
 - Scripts for all demo steps
 - Two node servers to stream MongoDB data
 - A node web server for pages with D3 charting
 
-##Prerequisites
+## Dependencies
 
-- MongoDB (v2.0.2, v2.2.0, v2.4.0, v2.4.4 used ok)
-- Node.JS (v0.6.10, v0.8.20 used ok; v0.11.2 didn't work)
+- MongoDB (v2.0.2, v2.2.0, v2.4.0, v2.4.4)
+- Node.JS (v0.6.10, v0.8.20, v0.11.2)
 
 ##Installation
 
